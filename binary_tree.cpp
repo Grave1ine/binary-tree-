@@ -1,14 +1,10 @@
 #include <../../class_string/ClassString/MyString.h>
 #include <binary_tree.h>
-#include <cstring>
+
 
 Binary_Tree::Binary_Tree(): root(nullptr)     //конструктор класса инициализирующий указатели нулями
 {}
 
-Node * Binary_Tree::Get_root()
-{
-    return root;
-}
 
 Node * Binary_Tree::Set_root(Node * node)              //метод записи
 {
@@ -31,16 +27,22 @@ void Binary_Tree::add(String & word)                   //реализация (�
 
 void Binary_Tree::add_item(Node * node, String & word)
 {
-    if(Get_root() == nullptr)         // !node
+
+    if(node->data == word)
     {
-    node = new Node;
-    node->data = word;
-    node->left = nullptr;
-    node->right = nullptr;
-    Get_root(node);
+        node->counter++;
     }
 
-    if(node->data > word)    //if(String std::strcpm(word, node->data) < 0)
+    if(root == nullptr)
+    {
+    node = new Node(word);
+    }
+    else
+    {
+        add_item(root, word);
+    }
+
+    if(word < node->data)
     {
         if(node->left != nullptr)
         {
@@ -48,14 +50,10 @@ void Binary_Tree::add_item(Node * node, String & word)
         }
         else
         {
-            node->left = new Node;
-            node->left->left = nullptr;
-            node->left->right = nullptr;
-            node->left->data = word;
+            node->left = new Node(word);
         }
     }
-
-    if(String std::strcpm(word, node->data) > 0)
+    else
     {
         if(node->right != nullptr)
         {
@@ -63,17 +61,11 @@ void Binary_Tree::add_item(Node * node, String & word)
         }
         else
         {
-            node->right = new Node;
-            node->right->left = nullptr;
-            node->right->right = nullptr;
-            node->left->data = word;
+            node->right = new Node(word);
         }
     }
 
-    if(String std::strcpm(word, node->data) == 0)
-    {
-        node->counter++;
-    }
+
 }
 
 size_t Binary_Tree::search(String & word)              //реализация
