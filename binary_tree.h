@@ -3,31 +3,33 @@
 #include <../../class_string/ClassString/MyString.h>
 #include <cstdlib>
 
-struct Node                                  //узел
-{
-    String data;                             //данные
-    Node * right;                            //указатель на правую ветвь
-    Node * left;                             //указатель на левую ветвь
-    size_t counter;                          //хранит значение
-    explicit Node(String & word);            //конструктор инициализации
-};
 
 class Binary_Tree
 {
 private:
-    Node * root;                            //указатель на корень
-    size_t size;                            //кол во элементов в дереве
-    void add(String & word);                //метод добавления слова в дерево
-    void add_item(Node * node, String & word);          //добавление элемента в дерево???
+    struct Node                                   //узел
+    {
+        Node() = default;                         //т.к конструкторы уже есть объявляем конструктор по умолчанию с помощью default
+        String data;                              //данные
+        Node * right;                             //указатель на правую ветвь
+        Node * left;                              //указатель на левую ветвь
+        size_t counter;                           //хранит значение
+        explicit Node(const String & word);       //конструктор инициализации
+    };
+
+    size_t size;                                  //кол во элементов в дереве (не нужно)
+    void add_item(Node * node, String & word);    //добавление элемента в дерево???
 
 public:
-    Binary_Tree();                          //конструктор класса инициализирующий указатели нулями
+    Node * root;                                  //указатель на корень
 
-    ~Binary_Tree();                         //метод поиска
+    Binary_Tree();                                //конструктор класса инициализирующий указатели нулями
 
-    size_t search(String & word);           //метод поиска
+    ~Binary_Tree();                               //метод поиска
 
-    Node * Set_root(Node * node);
+    void add(String & word);                      //метод добавления слова в дерево
+
+    size_t SearchNode(Node * node ,String & word);//метод поиска
 
     size_t Get_size();
 
